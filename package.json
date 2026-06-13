@@ -11,11 +11,12 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12",
+    "cloudinary": "^2.5",
+    "dotenv": "^17.4.2",
     "express": "^4.21",
     "googleapis": "^144",
-    "zod": "^3.24",
     "mime-types": "^2.1",
-    "cloudinary": "^2.5"
+    "zod": "^3.24"
   },
   "devDependencies": {
     "@types/express": "^5",
