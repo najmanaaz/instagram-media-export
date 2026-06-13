@@ -1,13 +1,40 @@
-import express from "express";
-import { randomUUID } from "node:crypto";
+import express, { type Request, type Response, type NextFunction } from "express";
+import { randomUUID, timingSafeEqual } from "node:crypto";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { registerScanTools } from "./tools/scan.js";
 import { registerOrganizeTools } from "./tools/organize.js";
 import { registerDriveTools } from "./tools/drive.js";
 
+const API_TOKEN = process.env.API_BEARER_TOKEN;
+
+function requireAuth(req: Request, res: Response, next: NextFunction): void {
+  if (!API_TOKEN) {
+    // No token configured — auth disabled (local development)
+    next();
+    return;
+  }
+
+  const header = req.headers.authorization;
+  if (!header || !header.startsWith("Bearer ")) {
+    res.status(401).json({ error: "Missing or malformed Authorization header" });
+    return;
+  }
+
+  const provided = Buffer.from(header.slice(7));
+  const expected = Buffer.from(API_TOKEN);
+
+  if (provided.length !== expected.length || !timingSafeEqual(provided, expected)) {
+    res.status(403).json({ error: "Invalid bearer token" });
+    return;
+  }
+
+  next();
+}
+
 const app = express();
 app.use(express.json());
+app.use("/mcp", requireAuth);
 
 const transports = new Map<string, StreamableHTTPServerTransport>();
 
