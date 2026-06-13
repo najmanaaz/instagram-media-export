@@ -5,6 +5,7 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { registerScanTools } from "./tools/scan.js";
 import { registerOrganizeTools } from "./tools/organize.js";
 import { registerDriveTools } from "./tools/drive.js";
+import { registerCloudinaryTools } from "./tools/cloudinary.js";
 
 const API_TOKEN = process.env.API_BEARER_TOKEN;
 
@@ -56,6 +57,7 @@ app.post("/mcp", async (req, res) => {
   registerScanTools(server);
   registerOrganizeTools(server);
   registerDriveTools(server);
+  registerCloudinaryTools(server);
 
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: () => randomUUID(),

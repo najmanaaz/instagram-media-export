@@ -19,6 +19,8 @@ export const RESUMABLE_UPLOAD_THRESHOLD = 5 * 1024 * 1024; // 5MB
 
 export const DEFAULT_BATCH_SIZE = 10;
 
+export const DEFAULT_CLOUDINARY_ROOT_FOLDER = "instagram-export";
+
 export const MONTH_NAMES = [
   "January",
   "February",

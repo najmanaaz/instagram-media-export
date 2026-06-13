@@ -14,7 +14,8 @@
     "express": "^4.21",
     "googleapis": "^144",
     "zod": "^3.24",
-    "mime-types": "^2.1"
+    "mime-types": "^2.1",
+    "cloudinary": "^2.5"
   },
   "devDependencies": {
     "@types/express": "^5",
