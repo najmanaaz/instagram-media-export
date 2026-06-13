@@ -3,3 +3,4 @@ dist/
 .env
 *.migration-state.json
 .DS_Store
+get-refresh-token.js
