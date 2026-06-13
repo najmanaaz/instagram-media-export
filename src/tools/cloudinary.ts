@@ -121,9 +121,13 @@ export function registerCloudinaryTools(server: McpServer): void {
             existingNames.add(fileName);
             uploaded++;
           } catch (err) {
-            failed.push(
-              `${item.relativePath}: ${err instanceof Error ? err.message : String(err)}`
-            );
+            const msg =
+              err instanceof Error
+                ? err.message
+                : typeof err === "object" && err !== null && "error" in err
+                  ? (err as { error: { message?: string } }).error.message ?? JSON.stringify(err)
+                  : String(err);
+            failed.push(`${item.relativePath}: ${msg}`);
           }
         });
         await Promise.all(uploadPromises);
