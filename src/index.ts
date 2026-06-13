@@ -59,6 +59,9 @@ app.post("/mcp", async (req, res) => {
 
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: () => randomUUID(),
+    onsessioninitialized: (sid) => {
+      transports.set(sid, transport);
+    },
   });
 
   transport.onclose = () => {
@@ -67,10 +70,6 @@ app.post("/mcp", async (req, res) => {
   };
 
   await server.connect(transport);
-
-  const sid = transport.sessionId;
-  if (sid) transports.set(sid, transport);
-
   await transport.handleRequest(req, res, req.body);
 });
 
