@@ -1,0 +1,25 @@
+{
+  "name": "instagram-media-export",
+  "version": "1.0.0",
+  "description": "MCP server that scans Instagram data exports and uploads organized media to Google Drive",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12",
+    "express": "^4.21",
+    "googleapis": "^144",
+    "zod": "^3.24",
+    "mime-types": "^2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5",
+    "@types/mime-types": "^2.1",
+    "@types/node": "^22",
+    "typescript": "^5.7"
+  }
+}
